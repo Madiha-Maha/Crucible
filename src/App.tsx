@@ -6,7 +6,6 @@ import { BlindSpotDetector } from "./components/BlindSpotDetector.js";
 import { SecondOpinionCircle } from "./components/SecondOpinionCircle.js";
 import { DecisionJournal } from "./components/DecisionJournal.js";
 import { TribunalAnalytics } from "./components/TribunalAnalytics.js";
-import { DeploymentGuideModal } from "./components/DeploymentGuideModal.js";
 import {
   Activity,
   AlertCircle,
@@ -20,7 +19,6 @@ import {
   PlusCircle,
   Scale,
   Send,
-  Server,
   Sparkles,
   Users,
 } from "lucide-react";
@@ -54,7 +52,6 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>("chamber");
   const [isCreatingNew, setIsCreatingNew] = useState(false);
   const [analytics, setAnalytics] = useState<AnalyticsType | null>(null);
-  const [isDeployModalOpen, setIsDeployModalOpen] = useState(false);
 
   // New Intake Form State
   const [decisionText, setDecisionText] = useState("");
@@ -363,16 +360,6 @@ export default function App() {
           {/* Action Header Controls */}
           <div className="flex items-center gap-2">
             <button
-              id="btn-deploy-guide"
-              onClick={() => setIsDeployModalOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#3A3A3C] bg-[#1E1E20] hover:border-[#B08D57] text-xs font-mono text-[#D4AF37] transition-colors"
-              title="View Railway + Vercel deployment instructions"
-            >
-              <Server className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Deployment</span>
-            </button>
-
-            <button
               id="btn-new-decision"
               onClick={() => setIsCreatingNew(true)}
               className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#B08D57] hover:bg-[#D4AF37] text-[#141416] text-xs font-bold uppercase tracking-wider transition-all shadow"
@@ -629,17 +616,11 @@ export default function App() {
         )}
       </main>
 
-      {/* Production Deployment Guide Modal */}
-      <DeploymentGuideModal
-        isOpen={isDeployModalOpen}
-        onClose={() => setIsDeployModalOpen(false)}
-      />
-
       {/* Minimal Footer */}
       <footer className="mt-auto border-t border-[#2C2C2E] py-6 px-4 sm:px-6 text-center text-xs text-[#636366]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="font-mono text-[11px] text-[#8E8E93]">
-            CRUCIBLE DECISION TRIBUNAL • VERCEL + RAILWAY DEPLOY-READY
+            CRUCIBLE DECISION TRIBUNAL • ADVERSARIAL REASONING ENGINE
           </span>
           <span className="italic font-serif-report text-[11px]">
             "He who has a why to live can bear almost any how."
