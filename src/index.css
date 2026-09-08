@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-chamber: #1C1C1E;
+    --brass: #B08D57;
+    --brass-light: #D4AF37;
+    --brass-dark: #8C6A36;
+    --parchment: #EDE6D6;
+    --parchment-subtle: #F6F2EA;
+    --parchment-ink: #1B1814;
+    --parchment-muted: #57524A;
+    --verdict-accent: #7A2E2E;
+    --verdict-accent-bright: #9E3838;
+    --charcoal-deep: #141416;
+    --charcoal-card: #242426;
+    --charcoal-border: #38383A;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--charcoal-deep);
+    color: #E5E5EA;
+  }
+
+  h1, h2, h3, .font-serif-report {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .font-legal-seal {
+    font-family: 'Cinzel', serif;
+  }
+}
+
+/* Custom scrollbar for Chamber and Docket */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #141416;
+}
+::-webkit-scrollbar-thumb {
+  background: #3A3A3C;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B08D57;
+}
+
+/* Print CSS for exportable Verdict Reports */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #111111 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .verdict-page-break {
+    page-break-before: always;
+  }
+  .verdict-document-container {
+    box-shadow: none !important;
+    border: 1px solid #d1d5db !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+}
+

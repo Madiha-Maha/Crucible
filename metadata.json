@@ -1,0 +1,6 @@
+{
+  "name": "Crucible — Stress-Test Your Life Before You Live It",
+  "description": "A structured, multi-perspective AI decision-tribunal that cross-examines your life choices, detects cognitive biases, and delivers a formal Verdict Report.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

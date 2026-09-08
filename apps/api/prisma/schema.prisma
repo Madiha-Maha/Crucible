@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String            @id @default(uuid())
+  email     String            @unique
+  name      String?
+  password  String
+  createdAt DateTime          @default(now())
+  sessions  DecisionSession[]
+}
+
+model DecisionSession {
+  id               String                @id @default(uuid())
+  userId           String
+  user             User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  decisionText     String
+  stakes           String?
+  statedReasons    String?
+  status           String                @default("chamber") // chamber, verdict_ready, archived
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+  personaResponses PersonaResponse[]
+  biasFlags        BiasFlag[]
+  verdictReport    VerdictReport?
+  circleInvites    SecondOpinionInvite[]
+}
+
+model PersonaResponse {
+  id          String          @id @default(uuid())
+  sessionId   String
+  session     DecisionSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  personaType String // skeptic, dreamer, future_self, outsider
+  content     String
+  keyQuestion String
+  createdAt   DateTime        @default(now())
+}
+
+model BiasFlag {
+  id          String          @id @default(uuid())
+  sessionId   String
+  session     DecisionSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  biasType    String // sunk_cost, loss_aversion, confirmation_bias, planning_fallacy, availability_heuristic
+  citedText   String
+  explanation String
+  createdAt   DateTime        @default(now())
+}
+
+model VerdictReport {
+  id                   String          @id @default(uuid())
+  sessionId            String          @unique
+  session              DecisionSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  caseFor              String
+  caseAgainst          String
+  unresolvedQuestions  String[]
+  decisionQualityScore Int // 0-100
+  summary              String?
+  createdAt            DateTime        @default(now())
+}
+
+model SecondOpinionInvite {
+  id           String          @id @default(uuid())
+  sessionId    String
+  session      DecisionSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  inviteeEmail String
+  inviteeRole  String          @default("mentor")
+  response     String?
+  perspective  String?
+  createdAt    DateTime        @default(now())
+}
